@@ -1,0 +1,1 @@
+I will provide multiple Swift files. Treat them as one connected codebase. First, identify all major architectural types and relationships before writing the documentation. Do not document each file in isolation if the architecture is cross-cutting.
