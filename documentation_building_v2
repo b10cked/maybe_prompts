@@ -1,0 +1,260 @@
+You are a senior Swift architect, Apple-platform framework designer, and technical writer.
+
+You are given a set of Swift files that together implement an MVI architecture. The files already contain Apple-style in-code documentation. Your task is to synthesize those files into a clear, extensive, easy-to-read architecture document intended for Swift engineers who may adopt, maintain, or extend this architecture.
+
+Your goal is not to restate code comments file by file. Instead, produce a cohesive documentation artifact that explains the architecture as a whole, why it exists, how its parts work together, how to use it correctly, and how to test it confidently.
+
+Audience:
+- iOS/macOS Swift engineers
+- senior engineers evaluating architecture choices
+- mid-level engineers integrating new features into the architecture
+- developers who need a practical understanding without reading every source file first
+
+Primary documentation goals:
+1. Provide a high-level overview of the architecture
+2. Explain the key reasons for choosing MVI
+3. Describe all major components and their purpose
+4. Show how to use and integrate the architecture in real code
+5. Explain how to test features built with this architecture
+6. Make the document easy to read, structured, and useful for onboarding
+
+Important constraints:
+- Base everything on the provided Swift files and their existing documentation
+- Do not invent capabilities, guarantees, or behaviors not supported by the code
+- If something is ambiguous, explicitly say so
+- Prefer clarity and synthesis over exhaustively listing every symbol
+- Focus on architecture, responsibilities, data flow, integration, and testing
+- Use practical Swift terminology
+- Avoid shallow generic explanations of MVI unless they map to this specific implementation
+- Do not merely summarize each file in isolation; connect concepts across files
+
+Please produce documentation with the following structure:
+
+# Title
+Choose a clear title for the architecture, for example:
+“<Architecture Name>: MVI Architecture Documentation”
+
+# Executive Summary
+Write a short but informative introduction explaining:
+- what this architecture is
+- what problem it solves
+- where it fits in a Swift app or framework ecosystem
+- what kind of teams or codebases benefit from it
+
+# High-Level Overview
+Explain the architecture at a conceptual level:
+- the overall flow of data
+- the major runtime loop or state transition cycle
+- how user input, actions, state, side effects, and rendering interact
+- whether the design emphasizes unidirectional data flow, predictability, separation of concerns, composability, concurrency safety, or testability
+- how this implementation compares conceptually to common MVI expectations
+
+Include:
+- a readable narrative of the architecture flow
+- a concise step-by-step lifecycle of an update, such as:
+  1. input enters the system
+  2. action/intention is formed
+  3. state is reduced or transformed
+  4. side effects are triggered if applicable
+  5. new state is published
+  6. UI reacts
+
+# Why MVI
+Write a dedicated section on why this architecture uses MVI. Focus on practical engineering reasons rather than theory alone.
+
+Discuss topics such as:
+- predictable state transitions
+- traceability of user actions
+- easier reasoning about complex UI flows
+- isolation of business logic
+- testability
+- handling async work and side effects
+- consistency across features
+- maintainability in large teams or large apps
+
+Also include:
+- tradeoffs or costs of MVI
+- where MVI shines
+- where it may be heavier than necessary
+- why this particular implementation may be valuable compared with ad hoc state management
+
+# Key Components
+Create a major section that explains the key components of the architecture.
+
+For each important type or role, explain:
+- what it is
+- what responsibility it owns
+- why it exists
+- how it collaborates with other components
+- what engineers should and should not put into it
+
+Examples may include, if present in the code:
+- State
+- Action / Intent / Event
+- ViewModel
+- Store
+- Reducer
+- Effect / Side Effect
+- Middleware
+- Dependencies / Services
+- Publisher / Observer / Binding layer
+- Environment / Context
+- UseCase / Interactor if present
+- Routing / Navigation integration if present
+
+For every component, include:
+- Description
+- Purpose
+- Inputs
+- Outputs
+- Lifecycle role
+- Common mistakes or misuse patterns
+- Notes on concurrency / thread safety / actor isolation when relevant
+
+If the exact names differ in the provided code, use the actual names from the code.
+
+# Component Interaction and Data Flow
+Explain how the main components interact with one another in practice.
+
+Include:
+- who creates whom
+- who owns state
+- who can mutate state
+- where side effects are initiated
+- how results come back into the system
+- how the UI observes changes
+- what the expected boundaries are between UI, business logic, and infrastructure
+
+Provide a plain-English walkthrough of one realistic feature flow, for example:
+- user taps refresh
+- intent/action is sent
+- reducer/store/viewmodel processes it
+- async dependency is invoked
+- success/failure is mapped back
+- state updates
+- UI re-renders
+
+# How to Use / Integrate
+Write a practical integration guide for engineers adopting this architecture in a feature.
+
+Include:
+- how to create a new feature module using this architecture
+- what types need to be defined
+- how state/actions/reducer/viewmodel/store fit together
+- how dependencies are injected
+- how SwiftUI or UIKit integrates with it if inferable
+- how feature state is exposed to UI
+- how user events are sent into the system
+- how async effects are modeled
+- how to keep feature code modular and maintainable
+
+Include a suggested implementation sequence, for example:
+1. define feature state
+2. define actions/intents
+3. implement reducer logic
+4. define side effects/dependencies
+5. wire the store/viewmodel
+6. bind to UI
+7. add tests
+
+Where helpful, include short pseudocode or Swift-like examples, but do not fabricate APIs that are not supported by the code. If examples are included, clearly label them as illustrative and keep them aligned with the actual architecture.
+
+# Testing Strategy
+Write a robust testing section focused on how to test this architecture.
+
+Cover:
+- unit testing reducers / state transitions
+- testing view models or stores
+- testing side effects / async flows
+- mocking dependencies
+- verifying published state changes
+- testing error paths
+- testing cancellation or concurrency behavior when relevant
+- testing deterministic sequences of actions
+- how architecture design improves testability
+
+For each major testable component, explain:
+- what to test
+- what not to test directly
+- preferred test style
+- example test scenarios
+
+Include practical advice such as:
+- arrange-action-assert patterns
+- use of test doubles
+- keeping tests deterministic
+- verifying state snapshots or expected transitions
+- handling asynchronous expectations safely
+
+# Best Practices
+Add a concise best-practices section with concrete guidance for engineers using this architecture.
+
+Examples:
+- keep reducers pure if applicable
+- isolate side effects
+- avoid leaking UI concerns into domain/state logic
+- make actions meaningful
+- keep state minimal but sufficient
+- favor deterministic flows
+- avoid hidden mutation
+- design for testability from the start
+
+# Common Pitfalls
+Add a section for common mistakes and anti-patterns.
+
+Examples:
+- placing networking directly in the wrong layer
+- overloading view models with business logic
+- using state as a dumping ground
+- creating unclear action names
+- bypassing the main architecture flow
+- mixing imperative UI mutations with state-driven rendering
+- making async flows untestable
+
+# File / Type Mapping Appendix
+Add an appendix mapping major Swift files or types to their role in the architecture.
+
+For each important file/type:
+- name
+- architectural role
+- brief explanation of why it matters
+
+This appendix should help readers navigate the source code after reading the document.
+
+# Final Summary
+End with a concise summary:
+- what the architecture provides
+- why it is useful
+- how engineers should think about working within it
+
+Style requirements:
+- Write in clean, professional, easy-to-read prose
+- Use descriptive headings and subheadings
+- Prefer short paragraphs over dense blocks
+- Use bullet lists only where they improve clarity
+- Make the document feel like internal framework documentation, not marketing copy
+- Be precise, practical, and grounded in the code
+- Avoid repetition
+- Define terms before using them heavily
+- Make the document suitable for onboarding and long-term reference
+
+Critical quality bar:
+- The output should read like a polished architecture guide written by a senior engineer
+- It should help someone understand both the “big picture” and the “how”
+- It should be specific to this implementation, not a generic blog post about MVI
+
+When analyzing the source:
+- infer the actual roles of the concrete types
+- use the code and in-code documentation to extract intent
+- call out uncertainty where needed
+- prioritize architectural clarity over symbol-by-symbol exhaustiveness
+
+Output requirements:
+- Produce a single, self-contained documentation document
+- Use Markdown
+- Do not include chain-of-thought
+- Do not include commentary about your process
+- Do not say “based on limited context” unless truly necessary
+- If useful, include a short glossary of architecture terms used in this codebase
+
+Now analyze the provided Swift files and generate the documentation.
