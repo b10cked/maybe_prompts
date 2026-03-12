@@ -1,0 +1,77 @@
+Add Apple-style documentation comments to this Swift file as if it were part of a reusable internal framework.
+
+You are documenting APIs for experienced Swift engineers who will read the file in Xcode Quick Help and use these types across modules.
+Pay special attention to concurrency semantics, generic roles, closure behavior, and how this symbol participates in the surrounding architecture.
+
+Primary objective:
+Make the API surface self-explanatory, trustworthy, and easy to adopt without changing the code.
+
+Rules:
+- Only add /// documentation comments
+- Do not modify code, formatting, names, or access levels
+- Return the full file only
+- Do not use markdown fences
+- Do not include any explanation outside the code
+
+Documentation style:
+- Follow Apple framework documentation tone
+- Start each major symbol with a concise summary sentence
+- Expand only when necessary to clarify semantics, lifecycle, ownership, concurrency, or usage
+- Emphasize API intent and caller expectations
+- Avoid paraphrasing the symbol name
+- Avoid tutorial-style narration
+- Avoid implementation-level commentary unless it affects consumers of the API
+
+Document all meaningful API surfaces, including:
+- types and nested types
+- protocols and associated semantic contracts
+- initializers and factories
+- methods and subscripts
+- non-trivial properties
+- meaningful extensions
+- enum cases when case meaning is part of the API contract
+
+For each symbol, consider documenting:
+- purpose in the architecture
+- expected usage context
+- relationship to neighboring types
+- mutation model
+- ownership/lifetime expectations
+- thread-safety or actor-isolation expectations
+- whether the API is synchronous, asynchronous, throwing, or cancellable
+- side effects and state transitions
+- assumptions and invariants
+
+Use these sections when appropriate:
+- - Parameters:
+- - Returns:
+- - Throws:
+- - Important:
+- - Warning:
+- - Note:
+- - Precondition:
+- - Postcondition:
+- - Complexity:
+- - SeeAlso:
+
+Architecture-specific guidance:
+- If the file defines roles like Store, Reducer, ViewModel, State, Action, Effect, Middleware, Publisher, or Dependency types, explicitly describe each symbol’s responsibility in the flow of data and control
+- Clarify whether a symbol transforms state, emits events, coordinates side effects, publishes updates, or isolates dependencies
+- For protocol-based abstractions, document the contract rather than the likely implementation
+- For generic abstractions, explain what each type parameter represents conceptually
+- For closures, document invocation timing and semantics
+- For async APIs, document cancellation and actor expectations when inferable
+- For observable state APIs, document how and when updates propagate when inferable
+
+Be conservative:
+- Do not invent behavior not supported by the code
+- If the implementation does not prove a guarantee, do not state it as a guarantee
+- Prefer “Provides” over “Ensures” unless certainty is clear from the code
+
+Final output must feel like:
+- polished internal framework documentation
+- high-signal Quick Help content
+- something a senior Apple-platform engineer would approve
+
+Now document this Swift file:
+[PASTE SWIFT FILE HERE]
